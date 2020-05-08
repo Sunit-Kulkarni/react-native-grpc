@@ -4,7 +4,9 @@ import { StyleSheet, Text, View, Button } from 'react-native';
 const { PingPongServiceClient } = require('./ping_pong_grpc_web_pb');
 const { PingRequest, PongResponse } = require('./ping_pong_pb.js');
 
-const client = new PingPongServiceClient('http://localhost:9090', null, null);
+// Use http://localhost:9090 when using local browser
+// Use http://192.168.1.126:9090 when using iOS or Android
+const client = new PingPongServiceClient('http://192.168.1.126:9090', null, null);
 const callGrpcService = () => {
   const request = new PingRequest();
   request.setPing('Ping');
