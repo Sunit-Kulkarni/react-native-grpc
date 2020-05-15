@@ -23,6 +23,12 @@ in the current directory:
 We are ready to run the Hello World example. The following set of commands will
 run the 3 processes all in the background.
 
+ 1. Install required node modules.
+
+ ```sh
+ $ yarn install
+ ```
+
  1. Run the NodeJS gRPC Service. This listens at port `:8080`.
 
  ```sh
