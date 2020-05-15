@@ -14,9 +14,9 @@ $ protoc -I=. ping_pong.proto \
 After the command runs successfully, you should now see two new files generated
 in the current directory:
 
- - `ping_pong_pb.js`: this contains the `HelloRequest` and `HelloReply`
+ - `ping_pong_pb.js`: this contains the `PingRequest` and `PongResponse`
    classes
- - `ping_pong_grpc_web_pb.js`: this contains the `GreeterClient` class
+ - `ping_pong_grpc_web_pb.js`: this contains the `PingPongServiceClient` class
 
 ## Run the Example!
 
