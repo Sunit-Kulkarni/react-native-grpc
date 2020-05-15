@@ -1,5 +1,7 @@
 import React from 'react';
-import { Button, Platform, StyleSheet, Text, View } from 'react-native';
+import {
+  Button, Platform, StyleSheet, Text, View,
+} from 'react-native';
 
 const { PingPongServiceClient } = require('./ping_pong_grpc_web_pb');
 const { PingRequest, PongResponse } = require('./ping_pong_pb.js');
@@ -19,7 +21,7 @@ const callGrpcService = () => {
       console.log(response.getPong());
     }
   });
-}
+};
 
 export default function App() {
   return (
