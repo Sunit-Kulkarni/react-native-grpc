@@ -1,13 +1,30 @@
 const grpc = require('grpc');
-const pingPongProto = grpc.load('ping_pong.proto');
+const protoLoader = require('@grpc/proto-loader');
 const server = new grpc.Server();
 
-server.addService(pingPongProto.pingpong.PingPongService.service, {
-  pingPong: function(call,callback) {
-    console.log("Request")
-    return callback(null,{pong:"Pong"})
+const packageDefinition = protoLoader.loadSync(
+  './ping_pong.proto',
+  {
+    keepCase: true,
+    longs: String,
+    enums: String,
+    defaults: true,
+    oneofs: true,
   }
+)
+
+const pingPongProto = grpc.loadPackageDefinition(packageDefinition).pingpong;
+
+const pingPong = (call, callback) => {
+  console.log("Request", call.request);
+  return callback(null, { pong: "Pong" });
+}
+
+server.addService(pingPongProto.PingPongService.service, {
+  pingPong
 });
 
-server.bind('localhost:8080',grpc.ServerCredentials.createInsecure());
+server.bind('localhost:8080', grpc.ServerCredentials.createInsecure());
 server.start();
+
+console.log("Server started ...")
