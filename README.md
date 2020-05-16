@@ -39,8 +39,8 @@ run the 3 processes all in the background.
  browser requests at port `:9090`, and forward them to port `:8080`
 
  ```sh
- $ docker build -t helloworld/envoy -f .
- $ docker run -p 9090:9090 helloword/envoy
+ $ docker build -t envoy-grpc .
+ $ docker run -p 9090:9090 envoy-grpc
  ```
  3. When these are all ready, you can open another terminal window and run
  ```sh

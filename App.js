@@ -3,24 +3,22 @@ import {
   Button, Platform, StyleSheet, Text, View,
 } from 'react-native';
 
-const { PingPongServiceClient } = require('./ping_pong_grpc_web_pb');
-const { PingRequest, PongResponse } = require('./ping_pong_pb.js');
+const { PingPongServicePromiseClient } = require('./ping_pong_grpc_web_pb');
+const { PingRequest } = require('./ping_pong_pb.js');
 
 // Use http://localhost:9090 when using local browser
 // Use http://192.168.1.126:9090 when using iOS or Android
 const serverUrl = Platform.OS === 'web' ? 'http://localhost:9090' : 'http://192.168.1.126:9090';
-const client = new PingPongServiceClient(serverUrl, null, null);
-const callGrpcService = () => {
+const promiseClient = new PingPongServicePromiseClient(serverUrl, null, null);
+const callGrpcServicePromise = async () => {
   const request = new PingRequest();
   request.setPing('Ping');
-
-  client.pingPong(request, {}, (err, response) => {
-    if (response == null) {
-      console.log(err);
-    } else {
-      console.log(response.getPong());
-    }
-  });
+  try {
+    const result = await promiseClient.pingPong(request, {});
+    console.log('this is the result', result.getPong());
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export default function App() {
@@ -29,7 +27,7 @@ export default function App() {
       <View style={styles.container}>
         <Text>Open up App.js to start working on your app!</Text>
       </View>
-      <Button title="GRPC" onPress={() => callGrpcService()}>Click for grpc request</Button>
+      <Button title="GRPC" onPress={() => callGrpcServicePromise()}>Click for grpc request</Button>
     </>
   );
 }
